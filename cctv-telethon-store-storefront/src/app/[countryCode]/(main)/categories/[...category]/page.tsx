@@ -16,6 +16,11 @@ type Props = {
 }
 
 export async function generateStaticParams() {
+  // Skip static generation during build time when backend is not available
+  if (process.env.SKIP_BUILD_STATIC_GENERATION === 'true') {
+    return []
+  }
+
   const product_categories = await listCategories()
 
   if (!product_categories) {
