@@ -1,6 +1,15 @@
 const checkEnvVariables = require("./check-env-variables")
 
-checkEnvVariables()
+// Skip env variable check if backend URL looks like a placeholder or is not available
+const backendUrl = process.env.MEDUSA_BACKEND_URL
+const shouldCheckEnv = backendUrl && 
+  !backendUrl.includes('${') && 
+  !backendUrl.includes('backend') &&
+  backendUrl !== 'backend'
+
+if (shouldCheckEnv) {
+  checkEnvVariables()
+}
 
 /**
  * @type {import('next').NextConfig}
