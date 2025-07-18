@@ -1,4 +1,5 @@
 import { Suspense } from "react"
+import { Montserrat } from "next/font/google"
 
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
@@ -6,13 +7,18 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 
+const montserrat = Montserrat({ weight: "800", subsets: ["latin"] })
+
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 border-ui-border-base" style={{ backgroundColor: '#EA8F1C' }}>
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
+      <header className="relative h-16 mx-auto duration-200" style={{ 
+        backgroundColor: '#EA8F1C',
+        boxShadow: 'inset 0 -3px 0px #B8730E'
+      }}>
+        <nav className={`text-lg text-white flex items-center justify-between w-full h-full px-4 ${montserrat.className}`}>
           <div className="flex-1 basis-0 h-full flex items-center">
             <div className="h-full">
               <SideMenu regions={regions} />
@@ -26,9 +32,15 @@ export default async function Nav() {
               data-testid="nav-store-link"
             >
               <img 
-                src="/CCTV Logo.png" 
+                src="/CCTV telethon Logo.png" 
                 alt="CCTV Telethon Store" 
-                className="h-12 w-auto"
+                style={{
+                  height: '90px',
+                  width: 'auto',
+                  position: 'relative',
+                  top: '15px',
+                  zIndex: 60
+                }}
               />
             </LocalizedClientLink>
           </div>

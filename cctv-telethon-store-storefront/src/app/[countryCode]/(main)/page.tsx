@@ -1,9 +1,14 @@
 import { Metadata } from "next"
+import { Montserrat } from "next/font/google"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
+import DonateButton from "@modules/home/components/donate-button"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
+
+const montserrat = Montserrat({ weight: "400", subsets: ["latin"] })
+const montserratLight = Montserrat({ weight: "300", subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
@@ -32,28 +37,32 @@ export default async function Home(props: {
     <>
       <Hero />
       <div 
-        className="text-center text-white"
+        className="text-center text-white px-4 sm:px-8 md:px-12 lg:px-16"
         style={{
           backgroundColor: '#642165',
-          padding: '2rem',
+          padding: '1.5rem 1rem',
           fontFamily: "'Courier New', Courier, monospace"
         }}
       >
         <h2 
-          className="text-3xl font-normal mb-4"
-          style={{ marginBottom: '1rem' }}
-        >
-          Support Independent Commerce
-        </h2>
-        <p 
-          className="text-lg max-w-4xl mx-auto mb-8"
+          className={`text-2xl sm:text-3xl md:text-4xl font-normal mb-4 ${montserrat.className}`}
           style={{ 
-            fontSize: '1.2rem',
-            maxWidth: '800px',
-            margin: '0 auto 2rem auto'
+            marginBottom: '1rem',
+            fontWeight: 400
           }}
         >
-          Help us build the decentralized store of tomorrow. Your donations go directly toward development and open-source infrastructure.
+          Join the CCTV Telethon Experience
+        </h2>
+        <p 
+          className={`text-base sm:text-lg md:text-xl max-w-4xl mx-auto mb-8 ${montserratLight.className}`}
+          style={{ 
+            fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+            maxWidth: '800px',
+            margin: '0 auto 2rem auto',
+            fontWeight: 300
+          }}
+        >
+          Experience live auctions, local musical acts, creative performances, and community talk shows. Saturday's programming collaborates with the Old North End Ramble event. Join our live studio audience at our accessible Burlington studios on 294 North Winooski Avenue.
         </p>
         
         {/* Guests in Zigzag Formation */}
@@ -176,7 +185,7 @@ export default async function Home(props: {
         </div>
       </div>
       <div 
-        className="w-full border-b border-ui-border-base relative text-center"
+        className="w-full border-b border-ui-border-base relative text-center pt-12"
         style={{
           padding: '2rem',
           backgroundColor: '#fff',
@@ -191,26 +200,26 @@ export default async function Home(props: {
           style={{
             position: 'absolute',
             top: '-1px',
-            left: '50%',
-            transform: 'translateX(-50%)',
+            left: '0',
+            right: '0',
             width: '100vw',
-            height: '30px',
+            height: 'clamp(30px, 4vw, 60px)',
             background: '#642165',
             clipPath: 'polygon(0% 0%, 0% 100%, 100% 0%)',
             zIndex: 1,
             pointerEvents: 'none'
           }}
         />
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between max-w-6xl mx-auto gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between max-w-6xl mx-auto gap-4" style={{ paddingTop: 'clamp(40px, 5vw, 80px)' }}>
           {/* Left content area */}
           <div className="flex-1 text-left sm:pr-8">
             <h3 
-              className="text-2xl font-bold mb-2"
+              className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-2 ${montserrat.className}`}
               style={{ 
-                fontFamily: "'Courier New', Courier, monospace"
+                fontWeight: 400
               }}
             >
-              Join the CCTV Telethon Live!
+              Preserving Local History Together
             </h3>
             <p 
               className="text-lg"
@@ -218,28 +227,13 @@ export default async function Home(props: {
                 fontFamily: "'Courier New', Courier, monospace"
               }}
             >
-              Watch live coverage, participate in exclusive auctions, and support independent media. Don't miss this historic broadcasting event!
+              This event will support the continued preservation of the CCTV Archives, a collection of over 40,000 programs showcasing local history dating back to 1984. Housed on over 11,000 VHS tapes and DVDs, these recordings document the meetings, protests, celebrations, and conversations that have shaped our communities for decades. In the wake of a terminated federal National Endowment for the Humanities grant, the preservation of these tapes is at risk due to lack of funds. All proceeds raised from the telethon fundraiser will directly benefit the CCTV Archives.
             </p>
           </div>
           
           {/* Right button area */}
           <div className="flex-shrink-0 w-full sm:w-auto">
-            <button
-              className="w-full sm:w-auto"
-              style={{
-                backgroundColor: '#EA8F1C',
-                color: '#fff',
-                border: 'none',
-                padding: '1rem 2rem',
-                fontSize: '1.2rem',
-                cursor: 'pointer',
-                borderRadius: '4px',
-                fontFamily: "'Courier New', Courier, monospace",
-                fontWeight: 'bold'
-              }}
-            >
-              Link to the Telethon
-            </button>
+            <DonateButton />
           </div>
         </div>
       </div>
