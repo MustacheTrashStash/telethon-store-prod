@@ -23,7 +23,7 @@ const Hero = () => {
           <span>
             <Heading
               level="h1"
-              className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-4 ${montserratMedium.className}`}
+              className={`text-4xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-4 ${montserratMedium.className}`}
               style={{ 
                 color: '#000',
                 fontWeight: 500
