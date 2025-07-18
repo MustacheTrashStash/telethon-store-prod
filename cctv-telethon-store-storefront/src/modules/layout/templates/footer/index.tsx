@@ -12,144 +12,156 @@ export default async function Footer() {
   const productCategories = await listCategories()
 
   return (
-    <footer className="border-t border-ui-border-base w-full">
-      <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
-          <div>
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
-            >
-              Medusa Store
-            </LocalizedClientLink>
-          </div>
-          <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
-            {productCategories && productCategories?.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Categories
-                </span>
-                <ul
-                  className="grid grid-cols-1 gap-2"
-                  data-testid="footer-categories"
-                >
-                  {productCategories?.slice(0, 6).map((c) => {
-                    if (c.parent_category) {
-                      return
-                    }
-
-                    const children =
-                      c.category_children?.map((child) => ({
-                        name: child.name,
-                        handle: child.handle,
-                        id: child.id,
-                      })) || null
-
-                    return (
-                      <li
-                        className="flex flex-col gap-2 text-ui-fg-subtle txt-small"
-                        key={c.id}
-                      >
-                        <LocalizedClientLink
-                          className={clx(
-                            "hover:text-ui-fg-base",
-                            children && "txt-small-plus"
-                          )}
-                          href={`/categories/${c.handle}`}
-                          data-testid="category-link"
-                        >
-                          {c.name}
-                        </LocalizedClientLink>
-                        {children && (
-                          <ul className="grid grid-cols-1 ml-3 gap-2">
-                            {children &&
-                              children.map((child) => (
-                                <li key={child.id}>
-                                  <LocalizedClientLink
-                                    className="hover:text-ui-fg-base"
-                                    href={`/categories/${child.handle}`}
-                                    data-testid="category-link"
-                                  >
-                                    {child.name}
-                                  </LocalizedClientLink>
-                                </li>
-                              ))}
-                          </ul>
-                        )}
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-            )}
-            {collections && collections.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Collections
-                </span>
-                <ul
-                  className={clx(
-                    "grid grid-cols-1 gap-2 text-ui-fg-subtle txt-small",
-                    {
-                      "grid-cols-2": (collections?.length || 0) > 3,
-                    }
-                  )}
-                >
-                  {collections?.slice(0, 6).map((c) => (
-                    <li key={c.id}>
-                      <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
-                        href={`/collections/${c.handle}`}
-                      >
-                        {c.title}
-                      </LocalizedClientLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">Medusa</span>
-              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
-                <li>
-                  <a
-                    href="https://github.com/medusajs"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    GitHub
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://docs.medusajs.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/medusajs/nextjs-starter-medusa"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Source code
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+    <footer 
+      className="w-full"
+      style={{
+        backgroundColor: '#000',
+        color: '#fff',
+        padding: '2rem',
+        fontFamily: "'Courier New', Courier, monospace"
+      }}
+    >
+      <div 
+        className="content-container"
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap'
+        }}
+      >
+        {/* MEDUSA STORE Section */}
+        <div 
+          style={{
+            flex: '1',
+            minWidth: '150px',
+            margin: '0.5rem'
+          }}
+        >
+          <h4 
+            style={{
+              marginBottom: '0.5rem',
+              color: '#EA8F1C',
+              fontSize: '1.1rem',
+              fontWeight: 'bold'
+            }}
+          >
+            MEDUSA STORE
+          </h4>
+          <p style={{ color: '#fff', fontSize: '0.9rem' }}>
+            Built with ❤️ by rebels and coders.
+          </p>
         </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
-          <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Medusa Store. All rights reserved.
-          </Text>
-          <MedusaCTA />
+
+        {/* Categories Section */}
+        {productCategories && productCategories?.length > 0 && (
+          <div 
+            style={{
+              flex: '1',
+              minWidth: '150px',
+              margin: '0.5rem'
+            }}
+          >
+            <h4 
+              style={{
+                marginBottom: '0.5rem',
+                color: '#EA8F1C',
+                fontSize: '1.1rem',
+                fontWeight: 'bold'
+              }}
+            >
+              Categories
+            </h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+              {productCategories?.slice(0, 4).map((c) => {
+                if (c.parent_category) {
+                  return null
+                }
+                return (
+                  <li key={c.id} style={{ margin: '0.25rem 0' }}>
+                    <LocalizedClientLink
+                      href={`/categories/${c.handle}`}
+                      style={{
+                        color: '#fff',
+                        textDecoration: 'none',
+                        display: 'block',
+                        fontSize: '0.9rem'
+                      }}
+                      data-testid="category-link"
+                    >
+                      {c.name}
+                    </LocalizedClientLink>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        )}
+
+        {/* Resources Section */}
+        <div 
+          style={{
+            flex: '1',
+            minWidth: '150px',
+            margin: '0.5rem'
+          }}
+        >
+          <h4 
+            style={{
+              marginBottom: '0.5rem',
+              color: '#EA8F1C',
+              fontSize: '1.1rem',
+              fontWeight: 'bold'
+            }}
+          >
+            Resources
+          </h4>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            <li style={{ margin: '0.25rem 0' }}>
+              <a
+                href="https://github.com/medusajs"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: '#fff',
+                  textDecoration: 'none',
+                  display: 'block',
+                  fontSize: '0.9rem'
+                }}
+              >
+                GitHub
+              </a>
+            </li>
+            <li style={{ margin: '0.25rem 0' }}>
+              <a
+                href="https://docs.medusajs.com"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: '#fff',
+                  textDecoration: 'none',
+                  display: 'block',
+                  fontSize: '0.9rem'
+                }}
+              >
+                Documentation
+              </a>
+            </li>
+            <li style={{ margin: '0.25rem 0' }}>
+              <a
+                href="https://github.com/medusajs/nextjs-starter-medusa"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: '#fff',
+                  textDecoration: 'none',
+                  display: 'block',
+                  fontSize: '0.9rem'
+                }}
+              >
+                Source code
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </footer>
